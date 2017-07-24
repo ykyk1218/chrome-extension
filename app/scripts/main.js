@@ -1,8 +1,19 @@
-fs = require('fs');
-PDFDocument = require('pdfkit')
-doc = new PDFDocument
-doc.pipe(fs.createWriteStream('./file.pdf'))
-doc.font('./app/fonts/ipam.ttf').fontSize(25).text("日本語テスト",100,200)
-doc.addPage().fontSize(25).text("日本語テスト",100,100)
-doc.end()
-console.log("hoge")
+const pdfmake = require('pdfmake/build/pdfmake.js');
+const vfs_fonts = require('pdfmake/build/vfs_fonts.js');
+pdfmake.vfs = vfs_fonts.pdfMake.vfs;
+
+pdfmake.fonts = {
+  Roboto: {
+    normal: "ipam.ttf",
+    bold: "ipam.ttf",
+    italics: "ipam.ttf",
+    bolditalics: "ipam.ttf"
+  }
+}
+const docDefinition = { 
+  content: '日本語テスト',
+  defaultStyle: {
+    font: 'Roboto'
+  }
+};
+pdfmake.createPdf(docDefinition).download();

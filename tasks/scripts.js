@@ -21,7 +21,7 @@ gulp.task('scripts', (cb) => {
     .pipe(gulpWebpack({
       devtool: args.sourcemaps ? 'inline-source-map' : false,
       watch: args.watch,
-      target: "node",
+      target: "web",
       plugins: [
         new webpack.DefinePlugin({
           'process.env': {

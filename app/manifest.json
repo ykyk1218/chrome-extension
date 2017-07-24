@@ -21,5 +21,6 @@
     },
     "default_title": "__MSG_browserActionTitle__",
     "default_popup": "pages/popup.html"
-  }
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval' blob: filesystem:; object-src 'self'"
 }
