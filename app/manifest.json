@@ -8,11 +8,18 @@
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
   },
+  "permissions": ["https://hxgddvr96i.execute-api.ap-northeast-1.amazonaws.com/*", "https://qiita-image-store.s3.amazonaws.com/*", "*://qiita.com/*", "activeTab"],
   "background": {
     "scripts": [
       "scripts/background.js"
     ]
   },
+  "content_scripts": [
+    {
+      "matches": ["http://qiita.com/*"],
+      "js":["scripts/qiita.js"]
+    }
+  ],
   "page_action": {
     "default_popup": "pages/popup.html",
     "default_icon": {
@@ -22,5 +29,5 @@
     "default_title": "__MSG_browserActionTitle__",
     "default_popup": "pages/popup.html"
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval' blob: filesystem:; object-src 'self'"
+  "content_security_policy": "script-src https://qiita-image-store.s3.amazonaws.com/ http://qiita.com/ 'self' 'unsafe-eval' blob: filesystem:; object-src 'self' https://qiita-image-store.s3.amazonaws.com/ http://qiita.com/;"
 }
