@@ -12,21 +12,36 @@
       bolditalics: "ipam.ttf"
     }
   }
+  if(document.getElementsByClassName("is-slide")) {
+    const slide_controller = document.getElementsByClassName("slide_controller")[0]
+    const slide_controller_fullscreen = slide_controller.getElementsByClassName("slide_controller_fullscreen")[0]
 
-  console.log("HogeHoge")
+    let downloadElement = document.createElement("div")
+    let buttonElement   = document.createElement("button")
+    let iconElement     = document.createElement("i")
+    downloadElement.className = "slide_controller_fullscreen"
+    iconElement.className = "fa fa-download"
+    console.log(downloadElement)
+    console.log(buttonElement)
+    console.log(iconElement)
+    buttonElement.appendChild(iconElement)
+    downloadElement.appendChild(buttonElement)
+    //downloadElement.insertBefore(buttonElement.insertBefore(iconElement, buttonElement.firstChild), downloadElement.firstChild)
+    slide_controller_fullscreen.parentNode.insertBefore(downloadElement, slide_controller_fullscreen)
+  }
+})()
+
+
+function clickDownload() {
   if(document.getElementsByClassName("is-slide")) {
     //ページがslideモードの場合
-    console.log("スライドモード")
     const slideTitle = document.getElementsByClassName("ArticleMainHeader__title")[0].textContent
-    console.log("スライドタイトル:" + slideTitle)
-
     const slideSection = document.getElementById("item-13a253a081d329d23292")
     const slideSectionChildren = slideSection.childNodes
     const content = []
     slideSectionChildren.forEach((v, k, listObj)=>{
       if(v.tagName == "H2") {
         content.push({text: v.textContent, fontSize: 25, margin: [0,0,0,10]})
-
       }else if(v.tagName == "P"){
         v.childNodes.forEach((p_v, p_k)=>{
           if(p_v.tagName == "A") {
@@ -37,7 +52,7 @@
               var req = new XMLHttpRequest();
               req.open('POST', 'https://hxgddvr96i.execute-api.ap-northeast-1.amazonaws.com/prod/encodeImage', false);
               req.setRequestHeader('content-type','application/json')
-              req.send(JSON.stringify({url: img.src}))
+              req.send(JSON.stringify({url: img.src, width: img.width, height: img.height}))
               if(req.status == 200) {
                 console.log(req.responseText)
                 content.push({image: req.responseText})
@@ -65,7 +80,7 @@
     pdfmake.createPdf(docDefinition).download();
     //const slides = document.querySelector("section>hr")
   }
-
+  /*
   function imageToBase64(img, mime_type) {
       // New Canvas
       var canvas = document.createElement('canvas');
@@ -78,6 +93,5 @@
       // To Base64
       return canvas.toDataURL(mime_type);
   }
-  
-
-}())
+  */
+}
