@@ -50,6 +50,10 @@ function clickDownload() {
     slideSectionChildren.forEach((v, k, listObj)=>{
       if(v.tagName == "H2") {
         content.push({text: v.textContent, fontSize: 25, margin: [0,0,0,10]})
+
+      }else if(v.tagName == "H3") {
+        content.push({text: v.textContent, fontSize: 20, margin: [0,0,0,10]})
+
       }else if(v.tagName == "P"){
         let href = ""
         v.childNodes.forEach((p_v, p_k)=>{
@@ -74,6 +78,10 @@ function clickDownload() {
 						}
           }else if(p_v.tagName == "STRONG") {
             content.push({text: p_v.textContent, fontSize: 16, margin: [0, 10], bold: true})
+
+          }else if(p_v.tagName == "CODE") {
+            content.push({text: p_v.textContent, fontSize: 16, margin: [0, 0], bold: true})
+
           }else if(p_v.nodeType == Node.TEXT_NODE) {
             console.log(p_v.textContent)
             if(/\r?\n/.test(p_v.textContent) === false) {
@@ -82,6 +90,19 @@ function clickDownload() {
             }
           }
 				})
+      }else if(v.tagName == "DIV") {
+        if(v.className == "code-frame") {
+          content.push({
+            table: {
+              headerRows: 0,
+              width: "*",
+              body: [
+                [{text: v.textContent, fontSize: 16, fillColor: "#f7f7f7"}]
+              ]
+            },
+            margin: [0,10]
+          })
+        }
 
       }else if(v.tagName == "HR"){
         content.push({text: "", pageBreak: 'before'})
