@@ -37,15 +37,21 @@ function clickDownload() {
   }
 
   if(document.getElementsByClassName("is-slide")) {
-    //ページがslideモードの場合
+    //タイトルを入れる
     const slideTitle = document.getElementsByClassName("ArticleMainHeader__title")[0].textContent
+    const userName   = document.getElementsByClassName("itemsShowAuthorInfo_userName")[0].textContent
+    const content = []
+    content.push({text: slideTitle, fontSize: 50, margin: [0,200,0,0], alignment: 'center', bold: true})
+    content.push({text: "by " + userName, fontSize: 25, margin: [0,30,0,0], color: "#999", alignment: 'center', bold: true})
+    content.push({text: "", pageBreak: 'before'})
+
     const slideSection = document.getElementById("item-13a253a081d329d23292")
     const slideSectionChildren = slideSection.childNodes
-    const content = []
     slideSectionChildren.forEach((v, k, listObj)=>{
       if(v.tagName == "H2") {
         content.push({text: v.textContent, fontSize: 25, margin: [0,0,0,10]})
       }else if(v.tagName == "P"){
+        let href = ""
         v.childNodes.forEach((p_v, p_k)=>{
           if(p_v.tagName == "A") {
           	if(p_v.children.length > 0 && p_v.children[0].tagName == "IMG") {
@@ -63,10 +69,19 @@ function clickDownload() {
               }
 						}else{
 							//url
+              href = p_v.getAttribute("href")
+              content.push({text: p_v.textContent, fontSize: 16, color: "#33ab7", margin: [0, 0], link: href})
 						}
-          } 
+          }else if(p_v.tagName == "STRONG") {
+            content.push({text: p_v.textContent, fontSize: 16, margin: [0, 10], bold: true})
+          }else if(p_v.nodeType == Node.TEXT_NODE) {
+            console.log(p_v.textContent)
+            if(/\r?\n/.test(p_v.textContent) === false) {
+              //改行コードの時は何もしない
+              content.push({text: p_v.textContent, fontSize: 16, margin: [0, 10]})
+            }
+          }
 				})
-        content.push({text: v.textContent, fontSize: 16, margin: [0,5]})
 
       }else if(v.tagName == "HR"){
         content.push({text: "", pageBreak: 'before'})
