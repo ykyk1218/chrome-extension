@@ -1,9 +1,32 @@
+const pdfmake = require('pdfmake/build/pdfmake.js');
+const vfs_fonts = require('pdfmake/build/vfs_fonts.js');
+ 
 (function() {
 
-  const pdfmake = require('pdfmake/build/pdfmake.js');
-  const vfs_fonts = require('pdfmake/build/vfs_fonts.js');
+  if(document.getElementsByClassName("is-slide")) {
+    const slide_controller = document.getElementsByClassName("slide_controller")[0]
+    const slide_controller_fullscreen = slide_controller.getElementsByClassName("slide_controller_fullscreen")[0]
+
+    let downloadElement = document.createElement("div")
+    let buttonElement   = document.createElement("button")
+    let iconElement     = document.createElement("i")
+    downloadElement.className = "slide_controller_fullscreen slide_controller_download"
+    buttonElement.className = "slide_controller_btn clickable"
+    iconElement.className = "fa fa-download"
+    buttonElement.appendChild(iconElement)
+    downloadElement.appendChild(buttonElement)
+
+    //イベント追加
+    downloadElement.addEventListener("click", clickDownload)
+    //downloadElement.insertBefore(buttonElement.insertBefore(iconElement, buttonElement.firstChild), downloadElement.firstChild)
+    slide_controller_fullscreen.parentNode.insertBefore(downloadElement, slide_controller_fullscreen)
+  }
+})()
+
+
+function clickDownload() {
+  console.log("クリックイベント発動！！")
   pdfmake.vfs = vfs_fonts.pdfMake.vfs;
-  
   pdfmake.fonts = {
     ipam: {
       normal: "ipam.ttf",
@@ -12,27 +35,7 @@
       bolditalics: "ipam.ttf"
     }
   }
-  if(document.getElementsByClassName("is-slide")) {
-    const slide_controller = document.getElementsByClassName("slide_controller")[0]
-    const slide_controller_fullscreen = slide_controller.getElementsByClassName("slide_controller_fullscreen")[0]
 
-    let downloadElement = document.createElement("div")
-    let buttonElement   = document.createElement("button")
-    let iconElement     = document.createElement("i")
-    downloadElement.className = "slide_controller_fullscreen"
-    iconElement.className = "fa fa-download"
-    console.log(downloadElement)
-    console.log(buttonElement)
-    console.log(iconElement)
-    buttonElement.appendChild(iconElement)
-    downloadElement.appendChild(buttonElement)
-    //downloadElement.insertBefore(buttonElement.insertBefore(iconElement, buttonElement.firstChild), downloadElement.firstChild)
-    slide_controller_fullscreen.parentNode.insertBefore(downloadElement, slide_controller_fullscreen)
-  }
-})()
-
-
-function clickDownload() {
   if(document.getElementsByClassName("is-slide")) {
     //ページがslideモードの場合
     const slideTitle = document.getElementsByClassName("ArticleMainHeader__title")[0].textContent
