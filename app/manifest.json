@@ -1,14 +1,14 @@
 {
-  "name": "__MSG_appName__",
-  "short_name": "__MSG_appShortName__",
-  "description": "__MSG_appDescription__",
-  "version": "0.0.0",
+  "name": "QiitaPDF",
+  "short_name": "QiitaPDF",
+  "description": "Download QiitaSlide to PDF",
+  "version": "0.0.1",
   "manifest_version": 2,
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
   },
-  "permissions": ["https://hxgddvr96i.execute-api.ap-northeast-1.amazonaws.com/*", "https://qiita-image-store.s3.amazonaws.com/*", "*://qiita.com/*", "activeTab"],
+  "permissions": ["https://hxgddvr96i.execute-api.ap-northeast-1.amazonaws.com/*"],
   "background": {
     "scripts": [
       "scripts/background.js"
@@ -20,14 +20,5 @@
       "js":["scripts/qiita.js"]
     }
   ],
-  "page_action": {
-    "default_popup": "pages/popup.html",
-    "default_icon": {
-      "19": "images/icon-19.png",
-      "38": "images/icon-38.png"
-    },
-    "default_title": "__MSG_browserActionTitle__",
-    "default_popup": "pages/popup.html"
-  },
-  "content_security_policy": "script-src https://qiita-image-store.s3.amazonaws.com/ http://qiita.com/ 'self' 'unsafe-eval' blob: filesystem:; object-src 'self' https://qiita-image-store.s3.amazonaws.com/ http://qiita.com/;"
+  "content_security_policy": "script-src https://qiita-image-store.s3.amazonaws.com/ 'self' 'unsafe-eval' blob: filesystem:; object-src 'self' https://qiita-image-store.s3.amazonaws.com/;"
 }
