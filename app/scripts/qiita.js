@@ -49,11 +49,10 @@ function clickDownload() {
 
     const urlPath = location.pathname
     const splitUrlPath = urlPath.split("/")
-    console.log(splitUrlPath[splitUrlPath.length -1])
     const slideSection = document.getElementById("item-" + splitUrlPath[splitUrlPath.length -1])
     const slideSectionChildren = slideSection.childNodes
     slideSectionChildren.forEach((v, k, listObj)=>{
-      if(v.tagName == "H2") {
+      if(v.tagName == "H1" || v.tagName == "H2") {
         const nextElement = v.nextElementSibling
         if(nextElement.tagName == "HR") {
           //センター
@@ -63,6 +62,15 @@ function clickDownload() {
         }
       }else if(v.tagName == "H3") {
         content.push({text: v.textContent, fontSize: 20, margin: [0,0,0,10]})
+
+      }else if(v.tagName == "OL") {
+        let listIndex = 0
+        v.childNodes.forEach((ol_v, ol_k)=>{
+          if(ol_v.tagName == "LI") {
+            listIndex +=1
+            content.push({text: listIndex + "." + ol_v.textContent, fontSize: 20, margin: [0,0,0,10]})
+          }
+        })
 
       }else if(v.tagName == "P"){
         let href = ""
@@ -91,7 +99,7 @@ function clickDownload() {
             content.push({text: p_v.textContent, fontSize: 16, margin: [0, 0], bold: true})
 
           }else if(p_v.nodeType == Node.TEXT_NODE) {
-            if(/\r?\n/.test(p_v.textContent) === false) {
+            if(/\r?\n/.test(p_v.textContent) === false || p_v.length > 1) {
               //改行コードの時は何もしない
               content.push({text: p_v.textContent, fontSize: 16, margin: [0, 10]})
             }
