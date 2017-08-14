@@ -68,10 +68,26 @@ function clickDownload() {
         v.childNodes.forEach((ol_v, ol_k)=>{
           if(ol_v.tagName == "LI") {
             listIndex +=1
-            content.push({text: listIndex + "." + ol_v.textContent, fontSize: 20, margin: [0,0,0,10]})
+            content.push({text: listIndex + "." + ol_v.textContent, fontSize: 16, margin: [0,0,0,10]})
           }
         })
-
+      }else if(v.tagName == "UL") {
+        v.childNodes.forEach((ul_v, ul_k) =>{
+          if(ul_v.tagName == "LI") {
+            content.push({text: "・" + ul_v.textContent, fontSize: 16, margin: [0,0,0,10]})
+          }
+        })
+      }else if(v.tagName == "BLOCKQUOTE") {
+        content.push({
+          table: {
+            headerRows: 0,
+            width: "*",
+            body: [
+              [{text: v.textContent + "\n", fontSize: 16, fillColor: "#ffffff"}]
+            ]
+          },
+          margin: [0,10]
+        })       
       }else if(v.tagName == "P"){
         let href = ""
         v.childNodes.forEach((p_v, p_k)=>{
