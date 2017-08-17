@@ -96,9 +96,22 @@ function clickDownload() {
               //imgタグ
               const img = p_v.children[0]
               var req = new XMLHttpRequest();
+              let img_width  = img.width
+              let img_height = img.height
+
               req.open('POST', 'https://hxgddvr96i.execute-api.ap-northeast-1.amazonaws.com/prod/encodeImage', false);
               req.setRequestHeader('content-type','application/json')
-              req.send(JSON.stringify({url: img.src, width: img.width, height: img.height}))
+
+              //画像の最大横幅は710
+              if(img.width > 515) {
+                img_width = 515
+                let division_img_redution = img.width / img_width
+                img_height = img.height / division_img_redution
+                console.log("img_width: " + img_width)
+                console.log("img_height: " + img_height)
+                console.log("division_img_redution: " + division_img_redution)
+              }
+              req.send(JSON.stringify({url: img.src, width: img_width, height: img_height}))
               if(req.status == 200) {
                 content.push({image: req.responseText})
                 //content.push({image: ""})
