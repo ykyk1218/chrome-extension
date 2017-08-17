@@ -52,7 +52,6 @@
   },
   "dependenvies": {},
   "dependencies": {
-    "pdfkit": "^0.8.3",
     "pdfmake": "^0.1.31"
   }
 }
