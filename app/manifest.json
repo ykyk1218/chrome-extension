@@ -2,7 +2,7 @@
   "name": "QiitaPDF",
   "short_name": "QiitaPDF",
   "description": "Download QiitaSlide to PDF",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "icons": {
     "16": "images/0104-16.png",
