@@ -30,11 +30,11 @@ function clickDownload() {
 
   pdfmake.vfs = vfs_fonts.pdfMake.vfs;
   pdfmake.fonts = {
-    ipam: {
-      normal: "ipam.ttf",
-      bold: "ipam.ttf",
-      italics: "ipam.ttf",
-      bolditalics: "ipam.ttf"
+    meiryo: {
+      normal: "meiryo.ttf",
+      bold: "meiryo.ttf",
+      italics: "meiryo.ttf",
+      bolditalics: "meiryo.ttf"
     }
   }
 
@@ -117,7 +117,7 @@ function clickDownload() {
           }else if(p_v.nodeType == Node.TEXT_NODE) {
             if(/\r?\n/.test(p_v.textContent) === false || p_v.length > 1) {
               //改行コードの時は何もしない
-              content.push({text: p_v.textContent, fontSize: 16, margin: [0, 10]})
+              content.push({text: p_v.textContent.replace(/\r?\n/g,""), fontSize: 16, margin: [0, 0, 0, 20]})
             }
           }
 				})
@@ -143,7 +143,7 @@ function clickDownload() {
     const docDefinition = { 
       content: content,
       defaultStyle: {
-        font: 'ipam'
+        font: 'meiryo'
       }
     };
     pdfmake.createPdf(docDefinition).download();
